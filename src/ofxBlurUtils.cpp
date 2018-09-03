@@ -88,9 +88,9 @@ void ofxBlurUtils::setupRGB(int ww_, int hh_){
 }
 
 
-void ofxBlurUtils::begin(){
+void ofxBlurUtils::begin(bool _offscreen){
     
-    
+		offScreen = _offscreen;
     
     if(!bypass){
         
@@ -263,21 +263,21 @@ void ofxBlurUtils::endRGB(){
 
         
         
-        
-        if(isTiltShift){
-            mix.begin();
-            pong.draw(0,0);
-            mix.end();
-            
-            
-            mix.getTexture().setAlphaMask(mask.getTexture());
-            mix.draw(0,0);
-            
-        }
-        else{
-            pong.draw(0, 0, ww, hh);
-        }
-        
+				if (!offScreen) {
+					if (isTiltShift) {
+						mix.begin();
+						pong.draw(0, 0);
+						mix.end();
+
+
+						mix.getTexture().setAlphaMask(mask.getTexture());
+						mix.draw(0, 0);
+
+					}
+					else {
+						pong.draw(0, 0, ww, hh);
+					}
+				}
     }
     
     
@@ -340,6 +340,12 @@ void ofxBlurUtils::mouseMoved(ofMouseEventArgs & mouse){
     mouse.Pressed;
     
 }
+
+ofTexture	ofxBlurUtils::getTexture()
+{
+	return pong.getTexture();
+}
+
 
 int ofxBlurUtils::getMode(){
 

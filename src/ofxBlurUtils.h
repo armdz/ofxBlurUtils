@@ -17,7 +17,7 @@ class ofxBlurUtils{
 public:
     
     ofxBlurUtils(){
-        
+			offScreen = false;
     }
     
     
@@ -42,7 +42,7 @@ public:
     void setupTiltShift();              //enables use of alpha mask.
     void setupRGB(int ww_, int hh_);
     
-    void begin();
+    void begin(bool _offscreen = false);
     void end();
     void endRGB();
     
@@ -56,12 +56,15 @@ public:
     
     void setBypass(bool bypass_);
     void setTiltShift(bool isTiltShift_);
+
+		ofTexture	getTexture();
     
     //events:
     void mouseMoved(ofMouseEventArgs & mouse);
     
      bool atenuateLastPass;
     
+
     
     //gui
     ofParameterGroup parameters;
@@ -90,7 +93,7 @@ private:
     
     //float offSet;
     bool bypass;
-    
+		bool offScreen;
     
     bool isTiltShift;
     bool isTiltShiftInit;
